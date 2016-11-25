@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class WorldController : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class WorldController : MonoBehaviour
 
                 //Add a sprite renderer but dont bother to set a sprite since all tiles are empty right now
                 tile_gameObject.AddComponent<SpriteRenderer>();
+
+                //creates an anonymous function that expects a tile, then within that anon function it calls OnTileTypeChanged with the tile, and the tile's gameobject
+                tile_data.RegisterTileTypeChangedCallback((tile) => { OnTileTypeChanged(tile, tile_gameObject); });
             }
         }
 
@@ -46,10 +50,9 @@ public class WorldController : MonoBehaviour
             Debug.LogError("OnTileTypeChanged: unrecognized tile type");
         }
     }
-	
+
 	// Update is called once per frame
 	void Update ()
     {
-	
 	}
 }
